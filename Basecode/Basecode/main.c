@@ -16,7 +16,7 @@
 //#define TEST_MOTOR_CONTROLLER
 //#define TEST_ULTRASONIC_SENSOR
 
-void selectMode(int mode);
+void selectMode(Input self,int mode);
 
 #ifdef OUR_MAIN
 //------------------------------------------------------------------------------
@@ -94,11 +94,11 @@ int main(int argc, char *argv[])
         
         // Mode
         if (input.modePressed){
-            selectMode(mode);
+            selectMode(input,mode);
         }
         switch (mode)
         {
-        case 1:
+        case 0:
             //modeMarcheArriere();
             if (input.superButtonPressed) // bouton Y
             {
@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
             }
             break;
             
-        case 2:
+        case 1:
             //modeSlalom();
             if (input.forwardDown)
             {
@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
                 MotorController_setTargetSpeed(&motorR, 0.f);
             }
             break;    
-        case 3:
+        case 2:
             //modeFreinageUrgence();
             if (input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 20.f)
             {
@@ -185,11 +185,11 @@ int main(int argc, char *argv[])
             
             break;
             
-        case 4:
+        case 3:
             //modeVitesseCible();
             break;
 
-        case 5:
+        case 4:
             //modeCircuitAutonome();
             break;
             
@@ -216,14 +216,23 @@ int main(int argc, char *argv[])
         }
         switch (gear)
         {
+            case 0:
+                break;
             case 1:
                 speed = 40.f;
+                break;
             case 2:
                 speed = 50.f;
+                break;
             case 3:
                 speed = 60.f;
+                break;
             case 4:
                 speed = 70.f;
+                break;
+            default :
+                printf("Error\n");
+                break;
         }
 
 
@@ -244,13 +253,13 @@ int main(int argc, char *argv[])
 
 
 
-void selectMode(int mode)
+void selectMode(Input self, int mode)
 {
     //Speed +
-    if (input.mode)
+    if (self.modePressed)
     {
         mode++;
-        mode%5;
+        mode%=5;
     }
     switch (mode)
     {
