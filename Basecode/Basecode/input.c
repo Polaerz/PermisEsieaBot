@@ -78,7 +78,7 @@ void Input_updateControllerButtonDown(Input *self, int button)
         self->backwardDown = true;
         break;
     case CONTROLLER_BUTTON_X:
-        if (self->autoButton == )
+        if (self->autoButtonToggle == false)
         {
             self->autoButtonToggle = true;
         }else{
