@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
     LED led = { 0 };
     LED_init(&led, pi, GPIO_LED);
 
-    int gear = 0;
-    float speed = 0.f;
+    int gear = 1;
+    float speed = 30.f;
     float kp = 4.0f;
     float ki = 2.0f;
     
@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, true);
 
-                speed = 50.f;
+                //speed = 50.f;
                 //float deltaV = input.leftAxisX * 15.f;
 
                 MotorController_setTargetSpeed(&motorL, speed);
@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                speed = 50.f;
+                //speed = 50.f;
                 float deltaV = input.leftAxisX * 15.f;
 
                 MotorController_setTargetSpeed(&motorL, speed + deltaV);
@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, true);
                 MotorController_setBackward(&motorR, true);
 
-                speed = 50.f;
+                //speed = 50.f;
                 float deltaV = input.leftAxisX * 15.f;
 
                 MotorController_setTargetSpeed(&motorL, speed + deltaV);
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                speed = 50.f;
+                //speed = 50.f;
                 float deltaV = input.leftAxisX * 15.f;
 
                 MotorController_setTargetSpeed(&motorL, speed + deltaV);
@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                speed = 50.f;
+                //speed = 50.f;
                 float deltaV = input.leftAxisX * 15.f;
 
                 MotorController_setTargetSpeed(&motorL, speed + deltaV);
@@ -247,7 +247,7 @@ int main(int argc, char *argv[])
             case 0:
                 break;
             case 1:
-                speed = 40.f;
+                speed = 30.f;
                 break;
             case 2:
                 speed = 50.f;
