@@ -16,6 +16,8 @@
 //#define TEST_MOTOR_CONTROLLER
 //#define TEST_ULTRASONIC_SENSOR
 
+void selectMode(int mode);
+
 #ifdef OUR_MAIN
 //------------------------------------------------------------------------------
 // Programme principal
@@ -49,6 +51,7 @@ int main(int argc, char *argv[])
     LED led = { 0 };
     LED_init(&led, pi, GPIO_LED);
 
+    int gear = 0;
     float speed = 0.f;
     float kp = 4.0f;
     float ki = 2.0f;
@@ -66,7 +69,7 @@ int main(int argc, char *argv[])
     UltrasonicSensor_init(&sensorL, pi, GPIO_TRIG_L, GPIO_ECHO_L);
 
 
-    int mode = 1;
+    int mode = 0;
     printf("Mode marche arrière\n");
 
     LED_blink(&led, 3, 0.2f);
@@ -80,46 +83,16 @@ int main(int argc, char *argv[])
         MotorController_update(&motorR);
         UltrasonicSensor_update(&sensorL);
 
-
         if (Button_isPressed(&button) || input.startPressed)
             break;
 
-        if (input.modePressed){
-            switch (mode)
-            {
-            case 1:
-                mode++;
-                printf("Mode Slalom\n");
-                break;
-            
-            case 2:
-                mode++;
-                printf("Mode Freinage d'urgence\n");
-                break;    
-            
-            case 3:
-                mode++;
-                printf("Mode vitesse cible\n");
-                break;
-            
-            case 4:
-                mode++;
-                printf("Mode autonome\n");
-                break;
-
-            case 5:
-                mode = 1;
-                printf("Mode marche arrière\n");
-                break;
-            
-            default:
-                printf("error\n");
-                break;
-            }
-        }
+        
+        // Mode
+        if (input.modePressed)
+            selectMode(mode);
 
         switch (mode)
-            {
+        {
         case 1:
             //modeMarcheArriere();
             if (input.superButtonPressed) // bouton Y
@@ -216,7 +189,37 @@ int main(int argc, char *argv[])
             printf("error\n");
             break;
         }
-    }
+
+        //Speed +
+        if (input.SpeedMoreDown)
+        {
+            if(gear <4)
+            {
+                gear++;
+            }
+        }
+        //Speed -
+        if (input.SpeedLessDown)
+        {
+            if(gear >1)
+            {
+                gear--;
+            }
+        }
+        switch (gear)
+        {
+            case 1:
+                speed = 40.f;
+            case 2:
+                speed = 50.f;
+            case 3:
+                speed = 60.f;
+            case 4:
+                speed = 70.f;
+        }
+
+
+
 
     MotorController_quit(&motorL);
     MotorController_quit(&motorR);
@@ -227,9 +230,46 @@ int main(int argc, char *argv[])
     pigpio_stop(pi);
 
     return EXIT_SUCCESS;
+    }
 }
 
 
+
+void selectMode(int mode)
+{
+    //Speed +
+    if (input.mode)
+    {
+        mode++;
+        mode%5;
+    }
+    switch (mode)
+    {
+
+        case 0:
+            printf("Mode Slalom\n");
+            break;           
+        case 1:
+            printf("Mode Freinage d'urgence\n");
+            break;    
+        
+        case 2:
+            printf("Mode vitesse cible\n");
+            break;
+        
+        case 3:
+            printf("Mode autonome\n");
+            break;
+
+        case 4:
+            printf("Mode marche arrière\n");
+            break;
+        
+        default:
+            printf("error\n");
+            break;
+    }
+}
 
 #elif defined MAIN_PROGRAM
 //------------------------------------------------------------------------------
