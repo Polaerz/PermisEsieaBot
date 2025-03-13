@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
             {
                 MotorController_setTargetSpeed(&motorL, 0.f);
                 MotorController_setTargetSpeed(&motorR, 0.f);
-                for(i= 0; i>4;i++){
+                for(i= 0; i<4;i++){
                     LED_blink(&led, 5, 0.4);
                 }
             }
