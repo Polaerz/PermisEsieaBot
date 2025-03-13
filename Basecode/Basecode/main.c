@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 
 
     int mode = 1;
-    printf("Mode marche arrière");
+    printf("Mode marche arrière\n");
 
     LED_blink(&led, 3, 0.2f);
     while (true)
@@ -89,31 +89,31 @@ int main(int argc, char *argv[])
             {
             case 1:
                 mode++;
-                printf("Mode Slalom");
+                printf("Mode Slalom\n");
                 break;
             
             case 2:
                 mode++;
-                printf("Mode Freinage d'urgence");
+                printf("Mode Freinage d'urgence\n");
                 break;    
             
             case 3:
                 mode++;
-                printf("Mode vitesse cible");
+                printf("Mode vitesse cible\n");
                 break;
             
             case 4:
                 mode++;
-                printf("Mode autonome");
+                printf("Mode autonome\n");
                 break;
 
             case 5:
                 mode = 1;
-                printf("Mode marche arrière");
+                printf("Mode marche arrière\n");
                 break;
             
             default:
-                printf("error");
+                printf("error\n");
                 break;
             }
         }
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
             break;
             
         default:
-            printf("error");
+            printf("error\n");
             break;
         }
     }
