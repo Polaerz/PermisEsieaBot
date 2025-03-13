@@ -16,7 +16,7 @@
 //#define TEST_MOTOR_CONTROLLER
 //#define TEST_ULTRASONIC_SENSOR
 
-void selectMode(Input self,int mode);
+void selectMode(int * mode);
 
 #ifdef OUR_MAIN
 //------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
         
         // Mode
         if (input.modePressed){
-            selectMode(input,mode);
+            selectMode(&mode);
         }
         switch (mode)
         {
@@ -253,14 +253,13 @@ int main(int argc, char *argv[])
 
 
 
-void selectMode(Input self, int mode)
+void selectMode(int * mode)
 {
     //Speed +
-    if (self.modePressed)
-    {
-        mode++;
-        mode%=5;
-    }
+    
+    mode++;
+    mode%=5;
+    
     switch (mode)
     {
 
