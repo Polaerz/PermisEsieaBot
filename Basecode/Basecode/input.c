@@ -30,7 +30,7 @@ int g_joystick = -1;
 void Input_update(Input *self)
 {
     self->startPressed = false;
-    self->superButtonPressed = false;
+    //self->superButtonPressed = false;
     self->modePressed = false;
     self->speedLvlMinus = false;
     self->speedLvlPlus = false;
