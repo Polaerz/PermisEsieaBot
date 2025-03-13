@@ -62,6 +62,10 @@ int main(int argc, char *argv[])
     MotorController_setController(&motorL, kp, ki);
     MotorController_setController(&motorR, kp, ki);
 
+    UltrasonicSensor sensorL = { 0 };
+    UltrasonicSensor_init(&sensorL, pi, GPIO_TRIG_L, GPIO_ECHO_L);
+
+
     int mode = 1;
     printf("Mode marche arrière");
 
@@ -74,6 +78,8 @@ int main(int argc, char *argv[])
         LED_update(&led);
         MotorController_update(&motorL);
         MotorController_update(&motorR);
+        UltrasonicSensor_update(&sensorL);
+
 
         if (Button_isPressed(&button) || input.startPressed)
             break;
@@ -139,6 +145,23 @@ int main(int argc, char *argv[])
             break;    
         case 3:
             //modeFreinageUrgence();
+            if (input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 50.f)
+            {
+            MotorController_setBackward(&motorL, false);
+            MotorController_setBackward(&motorR, false);
+
+            speed = 50.f;
+            float deltaV = input.leftAxisX * 15.f;
+
+            MotorController_setTargetSpeed(&motorL, speed + deltaV);
+            MotorController_setTargetSpeed(&motorR, speed - deltaV);
+            }
+            else
+            {
+            MotorController_setTargetSpeed(&motorL, 0.f);
+            MotorController_setTargetSpeed(&motorR, 0.f);
+            LED_blink(&led,5,2);
+            }
             break;
             
         case 4:
