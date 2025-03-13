@@ -15,29 +15,34 @@ Vous trouverez ici tous les programmes utilisés pour le développement du bot. 
 
 Les informations ci-dessous servent de rappel pour se connecter à *l'ESIEABOT* ainsi que pour utiliser certaines commandes et données pouvant être utiles lors des différents tests à effectuer.
 
-#### Connection :
+#### **Connection :**
 
 ```console
 ssh pi@10.42.0.1
 ```
-#### Mise à jour du bot :
+#### **Mise à jour du bot :**
 
-MAJ système
+*MAJ système*
 ```console
 sudo apt update
 sudo apt upgrade
 ```
-MAJ Manette 
+*MAJ manette* 
 ```console
 sudo apt install joystick
 ```
-#### Tests de mise à jour :
+#### **Tests de mise à jour :**
 
-Test système 
+*Test système* 
 ```console
 /esieabot/available/official/add-on-board-test.py
 ```
-Test manette 
+*Test manette* 
 ```console
 jstest /dev/input/js0
 ```
+
+#### **Le Raspberry PI :**
+Le Raspberry Pi fonctionne grâce à ce que l'on appelle le [`GPIO`] (General Purpose Input/Output).
+La communication entre le GPIO et l'utilisateur s'effectue via `pigpiod_if2`, une bibliothèque de fonctions directement intégrée au Raspberry Pi.
+Documentation Raspberry Pi -> [Here](https://www.raspberrypi.com/documentation/)
