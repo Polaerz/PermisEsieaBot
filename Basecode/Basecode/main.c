@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
         }
 
         //Speed +
-        if (input.SpeedMoreDown)
+        if (input.speedLvlPlus)
         {
             if(gear <4)
             {
@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
             }
         }
         //Speed -
-        if (input.SpeedLessDown)
+        if (input.speedLvlMinus)
         {
             if(gear >1)
             {
