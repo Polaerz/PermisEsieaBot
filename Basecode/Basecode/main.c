@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
 
 
     int mode = 0;
+    bool toggleAuto = false;
     printf("Mode marche arrière\n");
 
     LED_blink(&led, 3, 0.2f);
@@ -200,7 +201,7 @@ int main(int argc, char *argv[])
                 MotorController_setTargetSpeed(&motorL, 0.f);
                 MotorController_setTargetSpeed(&motorR, 0.f);
                 for(int i= 0; i<4;i++){
-                    LED_blink(&led, 5, 0.4);
+                    LED_blink(&led, 5, 1.f);
                 }
             }
                 //DEMI-TOUR SUR PLACE
@@ -214,6 +215,27 @@ int main(int argc, char *argv[])
 
         case 4:
             //modeCircuitAutonome();
+            if(input.autoButtonToggle){
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, false);
+
+                speed = 15.f;
+                
+                if(UlrasonicSensor_getDistance(&sensorR) < 20.f){
+                    MotorController_setTargetSpeed(&motorL, speed/1.5);
+                    MotorController_setTargetSpeed(&motorR, speed);
+                }else if(UlrasonicSensor_getDistance(&sensorR) > 25.f){
+                    MotorController_setTargetSpeed(&motorL, speed);
+                    MotorController_setTargetSpeed(&motorR, speed/1.5);
+                }else{
+                    MotorController_setTargetSpeed(&motorL, speed);
+                    MotorController_setTargetSpeed(&motorR, speed);
+                }
+                
+            }else{
+                MotorController_setTargetSpeed(&motorL, 0.f);
+                MotorController_setTargetSpeed(&motorR, 0.f);
+            }
             break;
             
         default:

@@ -78,6 +78,13 @@ void Input_updateControllerButtonDown(Input *self, int button)
         self->backwardDown = true;
         break;
     case CONTROLLER_BUTTON_X:
+        if (self->autoButton == )
+        {
+            self->autoButtonToggle = true;
+        }else{
+            self->autoButtonToggle = false;
+        }
+        
         break;
     case CONTROLLER_BUTTON_Y:
         self->superButtonPressed = true;

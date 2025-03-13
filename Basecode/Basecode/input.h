@@ -17,6 +17,7 @@ typedef struct Input
     bool modePressed;
     bool speedLvlPlus;
     bool speedLvlMinus;
+    bool autoButtonToggle;
 } Input;
 
 void Input_update(Input *self);
