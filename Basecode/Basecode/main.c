@@ -16,8 +16,6 @@
 //#define TEST_MOTOR_CONTROLLER
 //#define TEST_ULTRASONIC_SENSOR
 
-void selectMode(int * mode);
-
 #ifdef OUR_MAIN
 //------------------------------------------------------------------------------
 // Programme principal
@@ -94,8 +92,38 @@ int main(int argc, char *argv[])
         
         // Mode
         if (input.modePressed){
-            selectMode(&mode);
+            switch (mode){
+            case 0:
+                printf("Mode Slalom\n");
+                mode++;
+                break;           
+            case 1:
+                printf("Mode Freinage d'urgence\n");
+                mode++;
+                break;    
+
+            case 2:
+                printf("Mode vitesse cible\n");
+                mode++;
+                break;
+
+            case 3:
+                printf("Mode autonome\n");
+                mode++;
+                break;
+
+            case 4:
+                printf("Mode marche arrière\n");
+                mode = 0;
+                break;
+
+            default:
+                printf("error\n");
+                break;
+            }
         }
+
+
         switch (mode)
         {
         case 0:
@@ -250,51 +278,6 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
     }
 }
-
-
-
-void selectMode(int * mode)
-{
-    //Speed +
-    
-    mode++;
-    mode%=5;
-    
-    switch (mode)
-    {
-
-        case 0:
-            printf("Mode Slalom\n");
-            break;           
-        case 1:
-            printf("Mode Freinage d'urgence\n");
-            break;    
-        
-        case 2:
-            printf("Mode vitesse cible\n");
-            break;
-        
-        case 3:
-            printf("Mode autonome\n");
-            break;
-
-        case 4:
-            printf("Mode marche arrière\n");
-            break;
-        
-        default:
-            printf("error\n");
-            break;
-    }
-}
-
-
-
-
-
-
-
-
 
 #elif defined MAIN_PROGRAM
 //------------------------------------------------------------------------------
