@@ -200,9 +200,9 @@ int main(int argc, char *argv[])
             {
                 MotorController_setTargetSpeed(&motorL, 0.f);
                 MotorController_setTargetSpeed(&motorR, 0.f);
-                for(int i= 0; i<4;i++){
-                    LED_blink(&led, 5, 1.f);
-                }
+                
+                LED_blink(&led, 5, 2.f/5.f);
+                
             }
                 //DEMI-TOUR SUR PLACE
                 //REPART EN MARCHE ARRIERE
@@ -219,13 +219,13 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                speed = 15.f;
-                printf("%f\n", UlrasonicSensor_getDistance(&sensorR));
+                speed = 25.f;
+                printf("%f\n", sensorR.m_distance);
                 
-                if(UlrasonicSensor_getDistance(&sensorR) < 20.f){
+                if(sensorR.m_distance < 25.f){
                     MotorController_setTargetSpeed(&motorL, speed/1.5f);
                     MotorController_setTargetSpeed(&motorR, speed);
-                }else if(UlrasonicSensor_getDistance(&sensorR) > 25.f){
+                }else if(sensorR.m_distance > 30.f){
                     MotorController_setTargetSpeed(&motorL, speed);
                     MotorController_setTargetSpeed(&motorR, speed/1.5f);
                 }else{
