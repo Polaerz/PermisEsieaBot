@@ -97,7 +97,7 @@ void Input_updateControllerButtonDown(Input *self, int button)
         self->speedLvlMinus = true;
         break;
     case CONTROLLER_BUTTON_RIGHTSHOULDER:
-        self->speedLvlPlus = true
+        self->speedLvlPlus = true;
         break;
     case CONTROLLER_BUTTON_L3:
         break;
