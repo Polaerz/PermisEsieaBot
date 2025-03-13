@@ -147,22 +147,22 @@ int main(int argc, char *argv[])
             //modeFreinageUrgence();
             if (input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 50.f)
             {
-            MotorController_setBackward(&motorL, false);
-            MotorController_setBackward(&motorR, false);
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, false);
 
-            speed = 50.f;
-            float deltaV = input.leftAxisX * 15.f;
+                speed = 50.f;
+                float deltaV = input.leftAxisX * 15.f;
 
-            MotorController_setTargetSpeed(&motorL, speed + deltaV);
-            MotorController_setTargetSpeed(&motorR, speed - deltaV);
+                MotorController_setTargetSpeed(&motorL, speed + deltaV);
+                MotorController_setTargetSpeed(&motorR, speed - deltaV);
             }
             else
             {
-            MotorController_setTargetSpeed(&motorL, 0.f);
-            MotorController_setTargetSpeed(&motorR, 0.f);
-            LED_blink(&led,5,2);
-            //DEMI-TOUR SUR PLACE
-            //REPART EN MARCHE ARRIERE
+                MotorController_setTargetSpeed(&motorL, 0.f);
+                MotorController_setTargetSpeed(&motorR, 0.f);
+                LED_blink(&led,5,2);
+                //DEMI-TOUR SUR PLACE
+                //REPART EN MARCHE ARRIERE
             }
             break;
             
