@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
             }
                 //DEMI-TOUR SUR PLACE
                 //REPART EN MARCHE ARRIERE
-            }
+            
             break;
             
         case 4:
