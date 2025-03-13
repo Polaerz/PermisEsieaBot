@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
             {
         case 1:
             //modeMarcheArriere();
-            if (input.superButtonPressed)
+            if (input.superButtonPressed) // bouton Y
             {
                 //prinf("launch c1");
                 MotorController_setBackward(&motorL, false);
@@ -137,6 +137,17 @@ int main(int argc, char *argv[])
             {
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
+
+                speed = 50.f;
+                float deltaV = input.leftAxisX * 15.f;
+
+                MotorController_setTargetSpeed(&motorL, speed + deltaV);
+                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+                
+            }else if(input.backwardDown)
+            {
+                MotorController_setBackward(&motorL, true);
+                MotorController_setBackward(&motorR, true);
 
                 speed = 50.f;
                 float deltaV = input.leftAxisX * 15.f;

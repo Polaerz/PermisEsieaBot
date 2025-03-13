@@ -75,9 +75,9 @@ void Input_updateControllerButtonDown(Input *self, int button)
         self->forwardDown = true;
         break;
     case CONTROLLER_BUTTON_B:
+        self->backwardDown = true;
         break;
     case CONTROLLER_BUTTON_X:
-        self->backwardDown = true;
         break;
     case CONTROLLER_BUTTON_Y:
         self->superButtonPressed = true;
@@ -115,9 +115,9 @@ void Input_updateControllerButtonUp(Input *self, int button)
         self->forwardDown = false;
         break;
     case CONTROLLER_BUTTON_B:
+        self->backwardDown = false;
         break;
     case CONTROLLER_BUTTON_X:
-        self->backwardDown = false;
         break;
     case CONTROLLER_BUTTON_Y:
         self->superButtonPressed = false;
