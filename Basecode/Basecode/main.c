@@ -68,6 +68,9 @@ int main(int argc, char *argv[])
     UltrasonicSensor sensorL = { 0 };
     UltrasonicSensor_init(&sensorL, pi, GPIO_TRIG_L, GPIO_ECHO_L);
 
+    UltrasonicSensor sensorR = { 0 };
+    UltrasonicSensor_init(&sensorR, pi, GPIO_TRIG_R, GPIO_ECHO_R);
+
 
     int mode = 0;
     printf("Mode marche arrière\n");
@@ -82,6 +85,7 @@ int main(int argc, char *argv[])
         MotorController_update(&motorL);
         MotorController_update(&motorR);
         UltrasonicSensor_update(&sensorL);
+        UltrasonicSensor_update(&sensorR);
 
         if (Button_isPressed(&button) || input.startPressed)
             break;
@@ -223,12 +227,13 @@ int main(int argc, char *argv[])
 
 
 
-
     MotorController_quit(&motorL);
     MotorController_quit(&motorR);
     Button_quit(&button);
     LED_quit(&led);
     FPS_quit(&fps);
+    UltrasonicSensor_quit(&sensorL);
+    UltrasonicSensor_quit(&sensorR);
 
     pigpio_stop(pi);
 
@@ -273,6 +278,14 @@ void selectMode(int mode)
             break;
     }
 }
+
+
+
+
+
+
+
+
 
 #elif defined MAIN_PROGRAM
 //------------------------------------------------------------------------------
