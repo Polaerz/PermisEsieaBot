@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
             break;    
         case 3:
             //modeFreinageUrgence();
-            if (input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 50.f)
+            if (input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 20.f)
             {
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
