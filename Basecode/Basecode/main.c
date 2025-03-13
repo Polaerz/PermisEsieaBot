@@ -87,8 +87,9 @@ int main(int argc, char *argv[])
         UltrasonicSensor_update(&sensorL);
         UltrasonicSensor_update(&sensorR);
 
-        if (Button_isPressed(&button) || input.startPressed)
+        if (Button_isPressed(&button) || input.startPressed){
             break;
+        }
 
         
         // Mode
@@ -175,7 +176,7 @@ int main(int argc, char *argv[])
             {
                 MotorController_setTargetSpeed(&motorL, 0.f);
                 MotorController_setTargetSpeed(&motorR, 0.f);
-                for(i= 0; i<4;i++){
+                for(int i= 0; i<4;i++){
                     LED_blink(&led, 5, 0.4);
                 }
             }
