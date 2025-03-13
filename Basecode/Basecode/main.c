@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 
                 MotorController_setTargetSpeed(&motorL, speed);
                 MotorController_setTargetSpeed(&motorR, speed);
-            }elif(input.forwardDown)
+            }else if(input.forwardDown)
             {
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
