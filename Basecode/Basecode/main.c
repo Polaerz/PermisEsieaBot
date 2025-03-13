@@ -219,16 +219,25 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                speed = 25.f;
+                speed = 15.f;
                 printf("%f\n", sensorR.m_distance);
                 
                 if(sensorR.m_distance < 25.f){
-                    MotorController_setTargetSpeed(&motorL, speed/1.5f);
-                    MotorController_setTargetSpeed(&motorR, speed);
+                    MotorController_setBackward(&motorL, true);
+                    MotorController_setBackward(&motorR, false);
+
+                    MotorController_setTargetSpeed(&motorL, speed/2.f);
+                    MotorController_setTargetSpeed(&motorR, speed*2.f);
                 }else if(sensorR.m_distance > 30.f){
-                    MotorController_setTargetSpeed(&motorL, speed);
-                    MotorController_setTargetSpeed(&motorR, speed/1.5f);
+                    MotorController_setBackward(&motorL, false);
+                    MotorController_setBackward(&motorR, true);
+
+                    MotorController_setTargetSpeed(&motorL, speed*2.f);
+                    MotorController_setTargetSpeed(&motorR, speed/2.f);
                 }else{
+                    MotorController_setBackward(&motorL, false);
+                    MotorController_setBackward(&motorR, false);
+
                     MotorController_setTargetSpeed(&motorL, speed);
                     MotorController_setTargetSpeed(&motorR, speed);
                 }
