@@ -120,6 +120,7 @@ void Input_updateControllerButtonUp(Input *self, int button)
         self->backwardDown = false;
         break;
     case CONTROLLER_BUTTON_Y:
+        self->superButtonPressed = false;
         break;
     case CONTROLLER_BUTTON_START:
         break;
