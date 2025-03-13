@@ -93,9 +93,9 @@ int main(int argc, char *argv[])
 
         
         // Mode
-        if (input.modePressed)
+        if (input.modePressed){
             selectMode(mode);
-
+        }
         switch (mode)
         {
         case 1:
