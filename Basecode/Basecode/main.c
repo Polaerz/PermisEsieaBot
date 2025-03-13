@@ -1,6 +1,29 @@
+/**         *****************************************************                                                                                           
+ *          *                Projet du ML Challenge             *
+ *          *****************************************************
+*/
+
+/**
+ * @author : Cyprien Jallet
+ * @author : Ombeline Porte
+ * @author : Joaquim Ludwiczak
+ * @author : Lucas Doganis
+ * @author : Mattéo Depestèle
+ * @author : Eline Cezard-sibillot
+ * 
+ * @see GitHub : https://github.com/Polaerz/PermisEsieaBot.git (Permission requise)
+ * @file : Basecode.zip 
+*/
+
+//------------------------------------------------------------------------------
+
+/**
+ * @defgroup : Libraires utilisées
+ * 
+ * @brief : Il faut télécharger Basecode.zip
+ */
 #include "settings.h"
 #include "input.h"
-
 #include "button.h"
 #include "fps.h"
 #include "led.h"
@@ -8,7 +31,6 @@
 #include "ultrasonic_sensor.h"
 #include "tools.h"
 
-// TODO: décommenter le define correspondant à la partie à tester
 #define OUR_MAIN
 
 #ifdef OUR_MAIN
@@ -34,21 +56,35 @@ int main(int argc, char *argv[])
         abort();
     }
 
+    // Initialisation des composants de FPS
     FPS fps = { 0 };
     FPS_init(&fps, pi);
 
+    // Initialisation des composants de Input et Button
     Input input = { 0 };
     Button button = { 0 };
     Button_init(&button, pi, GPIO_BUTTON);
 
+    // Initialisation des composants de LED
     LED led = { 0 };
     LED_init(&led, pi, GPIO_LED);
 
+//------------------------------------------------------------------------------
+
+    /**
+     * @defgroup : Init moteur
+     * 
+     * @param gear : Init de l'embrayage à 1
+     * @param speed : Init vitesse initiale
+     * @param kp : Init Constance de la proportionalité
+     * @param ki : Init Constante de l'intégrale 
+     */
     int gear = 1;
     float speed = 30.f;
     float kp = 4.0f;
     float ki = 2.0f;
     
+    // Init du moteur
     MotorController motorL = { 0 };
     MotorController motorR = { 0 };
     MotorController_init(&motorL, pi, GPIO_FORWARD_L, GPIO_BACKWARD_L, GPIO_MOTOR_CONTROL_L);
@@ -58,20 +94,44 @@ int main(int argc, char *argv[])
     MotorController_setController(&motorL, kp, ki);
     MotorController_setController(&motorR, kp, ki);
 
+//------------------------------------------------------------------------------
+
+    // Init du capteur Gauche
     UltrasonicSensor sensorL = { 0 };
     UltrasonicSensor_init(&sensorL, pi, GPIO_TRIG_L, GPIO_ECHO_L);
 
+    // Init du capteur Droit 
     UltrasonicSensor sensorR = { 0 };
     UltrasonicSensor_init(&sensorR, pi, GPIO_TRIG_R, GPIO_ECHO_R);
 
+//------------------------------------------------------------------------------
 
+    /**
+     * @defgroup : Init Epreuve
+     * 
+     * @param mode : Init le choix du mode à 0
+     * @note 0 = Marche arrière -> 1 = Mode Slalom -> 2 = Mode Freinage d'urgence 
+     *  -> 3 = Mode vitesse cible -> 4 = Mode Marche arrière
+     */
     int mode = 0;
     bool toggleAuto = false;
     printf("Mode marche arrière\n");
 
+//------------------------------------------------------------------------------
+
+    // Montrer que tout est bien init
     LED_blink(&led, 3, 0.2f);
+
+//------------------------------------------------------------------------------
+
+    // Boucle infini permettant que le code soit toujours actif
     while (true)
     {
+        /**
+         * @defgroup : Appel des fonctions Update 
+         * 
+         * @note : On remplace self part les composants init plus tôt
+         */
         FPS_update(&fps);
         Input_update(&input);
         Button_update(&button);
@@ -81,18 +141,23 @@ int main(int argc, char *argv[])
         UltrasonicSensor_update(&sensorL);
         UltrasonicSensor_update(&sensorR);
 
+//------------------------------------------------------------------------------
+
+        // Arrêt Total du code en appuyant sur le bouton du Rasberry ou le bouton start de la manette
         if (Button_isPressed(&button) || input.startPressed){
             break;
         }
 
+//------------------------------------------------------------------------------
         
-        // Mode
-        if (input.modePressed){
+        // Switch permettant de choisir les Epreuves en appuyant sur le bouton "MODE" de la manette
+        if(input.modePressed){
             switch (mode){
             case 0:
                 printf("Mode Slalom\n");
                 mode++;
-                break;           
+                break;     
+
             case 1:
                 printf("Mode Freinage d'urgence\n");
                 mode++;
@@ -119,19 +184,65 @@ int main(int argc, char *argv[])
             }
         }
 
+//------------------------------------------------------------------------------
 
-        switch (mode)
+        //Passer à la vitesse supérieur bouton "R1"
+        if(input.speedLvlPlus)
+        {
+            if(gear <4)
+            {
+                gear++;
+                printf("Gear %d\n", gear);
+            }
+        }
+
+        //Passer à la vitesse inférieur bouton "L1"
+        if(input.speedLvlMinus)
+        {
+            if(gear >1)
+            {
+                gear--;
+                printf("Gear %d\n", gear);
+            }
+        }
+
+        //Switch permettant de changer de vitesse après avoir changer gear, chaque gear correspond à une vitesse
+        switch(gear)
+        {
+            case 0:
+                break;
+            case 1:
+                speed = 30.f;
+                break;
+            case 2:
+                speed = 50.f;
+                break;
+            case 3:
+                speed = 60.f;
+                break;
+            case 4:
+                speed = 70.f;
+                break;
+            default :
+                printf("Error\n");
+                break;
+        }
+
+//------------------------------------------------------------------------------
+
+        //Switch permettant de choisir le mode adapté à l'épreuve
+        switch(mode)
         {
         case 0:
             //modeMarcheArriere();
-            if (input.superButtonPressed) // bouton Y
+            if(input.superButtonPressed) // bouton Y
             {
                 //prinf("launch c1");
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, true);
 
-                //speed = 50.f;
-                //float deltaV = input.leftAxisX * 15.f;
+                //speed = 50.f; //Ne pas prêter attention
+                //float deltaV = input.leftAxisX * 15.f; //Ne pas prêter attention
 
                 MotorController_setTargetSpeed(&motorL, speed);
                 MotorController_setTargetSpeed(&motorR, speed);
@@ -166,7 +277,7 @@ int main(int argc, char *argv[])
             
         case 1:
             //modeSlalom();
-            if (input.forwardDown)
+            if(input.forwardDown)
             {
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
@@ -185,7 +296,7 @@ int main(int argc, char *argv[])
             break;    
         case 2:
             //modeFreinageUrgence();
-            if (input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 20.f)
+            if(input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 20.f)
             {
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
@@ -252,48 +363,17 @@ int main(int argc, char *argv[])
             printf("error\n");
             break;
         }
-
-        //Speed +
-        if (input.speedLvlPlus)
-        {
-            if(gear <4)
-            {
-                gear++;
-                printf("Gear %d\n", gear);
-            }
-        }
-        //Speed -
-        if (input.speedLvlMinus)
-        {
-            if(gear >1)
-            {
-                gear--;
-                printf("Gear %d\n", gear);
-            }
-        }
-        switch (gear)
-        {
-            case 0:
-                break;
-            case 1:
-                speed = 30.f;
-                break;
-            case 2:
-                speed = 50.f;
-                break;
-            case 3:
-                speed = 60.f;
-                break;
-            case 4:
-                speed = 70.f;
-                break;
-            default :
-                printf("Error\n");
-                break;
-        }
-
+    
+    // Fin du while(true) 
     }
 
+//------------------------------------------------------------------------------
+
+    /**
+     * @defgroup : Appel des fonctions quit
+     * 
+     * @note : Obligatoire pour fermer proprement son code
+     */
     MotorController_quit(&motorL);
     MotorController_quit(&motorR);
     Button_quit(&button);
@@ -301,7 +381,6 @@ int main(int argc, char *argv[])
     FPS_quit(&fps);
     UltrasonicSensor_quit(&sensorL);
     UltrasonicSensor_quit(&sensorR);
-
     pigpio_stop(pi);
 
     return EXIT_SUCCESS;
