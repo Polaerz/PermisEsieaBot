@@ -32,6 +32,8 @@ void Input_update(Input *self)
     self->startPressed = false;
     self->superButtonPressed = false;
     self->modePressed = false;
+    self->speedLvlMinus = false;
+    self->speedLvlPlus = false;
     
     struct js_event evt = { 0 };
     while (read (g_joystick, &evt, sizeof(evt)) > 0)
@@ -78,7 +80,6 @@ void Input_updateControllerButtonDown(Input *self, int button)
         self->backwardDown = true;
         break;
     case CONTROLLER_BUTTON_Y:
-
         self->superButtonPressed = true;
         break;
     case CONTROLLER_BUTTON_START:
@@ -93,8 +94,10 @@ void Input_updateControllerButtonDown(Input *self, int button)
         self->modePressed = true;
         break;
     case CONTROLLER_BUTTON_LEFTSHOULDER:
+        self->speedLvlMinus = true;
         break;
     case CONTROLLER_BUTTON_RIGHTSHOULDER:
+        self->speedLvlPlus = true
         break;
     case CONTROLLER_BUTTON_L3:
         break;
@@ -125,8 +128,10 @@ void Input_updateControllerButtonUp(Input *self, int button)
     case CONTROLLER_BUTTON_MODE:
         break;
     case CONTROLLER_BUTTON_LEFTSHOULDER:
+        self->speedLvlMinus = false;
         break;
     case CONTROLLER_BUTTON_RIGHTSHOULDER:
+        self->speedLvlPlus = false;
         break;
     case CONTROLLER_BUTTON_L3:
         break;

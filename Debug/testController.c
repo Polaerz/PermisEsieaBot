@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 
     // Boucle principale
-    for (int i = 0; int i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
         // Reculer
         if (input.forwardDown)
         {
