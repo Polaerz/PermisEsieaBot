@@ -263,7 +263,7 @@ int main(int argc, char *argv[])
                 break;
         }
 
-
+    }
 
     MotorController_quit(&motorL);
     MotorController_quit(&motorR);
@@ -276,7 +276,6 @@ int main(int argc, char *argv[])
     pigpio_stop(pi);
 
     return EXIT_SUCCESS;
-    }
 }
 
 #elif defined MAIN_PROGRAM
