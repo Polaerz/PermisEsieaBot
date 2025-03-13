@@ -30,7 +30,7 @@ int g_joystick = -1;
 void Input_update(Input *self)
 {
     self->startPressed = false;
-    self->superButtonPressed = false;
+    //self->superButtonPressed = false;
     self->modePressed = false;
     self->speedLvlMinus = false;
     self->speedLvlPlus = false;
@@ -75,9 +75,9 @@ void Input_updateControllerButtonDown(Input *self, int button)
         self->forwardDown = true;
         break;
     case CONTROLLER_BUTTON_B:
+        self->backwardDown = true;
         break;
     case CONTROLLER_BUTTON_X:
-        self->backwardDown = true;
         break;
     case CONTROLLER_BUTTON_Y:
         self->superButtonPressed = true;
@@ -115,11 +115,12 @@ void Input_updateControllerButtonUp(Input *self, int button)
         self->forwardDown = false;
         break;
     case CONTROLLER_BUTTON_B:
-        break;
-    case CONTROLLER_BUTTON_X:
         self->backwardDown = false;
         break;
+    case CONTROLLER_BUTTON_X:
+        break;
     case CONTROLLER_BUTTON_Y:
+        self->superButtonPressed = false;
         break;
     case CONTROLLER_BUTTON_START:
         break;
