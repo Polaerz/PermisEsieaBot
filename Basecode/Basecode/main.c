@@ -220,13 +220,14 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorR, false);
 
                 speed = 15.f;
+                printf("%f", UlrasonicSensor_getDistance(&sensorR));
                 
                 if(UlrasonicSensor_getDistance(&sensorR) < 20.f){
-                    MotorController_setTargetSpeed(&motorL, speed/1.5);
+                    MotorController_setTargetSpeed(&motorL, speed/1.5f);
                     MotorController_setTargetSpeed(&motorR, speed);
                 }else if(UlrasonicSensor_getDistance(&sensorR) > 25.f){
                     MotorController_setTargetSpeed(&motorL, speed);
-                    MotorController_setTargetSpeed(&motorR, speed/1.5);
+                    MotorController_setTargetSpeed(&motorR, speed/1.5f);
                 }else{
                     MotorController_setTargetSpeed(&motorL, speed);
                     MotorController_setTargetSpeed(&motorR, speed);
