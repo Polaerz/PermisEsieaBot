@@ -187,7 +187,7 @@ int main(int argc, char *argv[])
             {
                 MotorController_setTargetSpeed(&motorL, 0.f);
                 MotorController_setTargetSpeed(&motorR, 0.f);
-                LED_blink(&led,5,2);
+                LED_blink(&led,5,0.4);
                 //DEMI-TOUR SUR PLACE
                 //REPART EN MARCHE ARRIERE
             }
