@@ -232,6 +232,7 @@ int main(int argc, char *argv[])
             if(gear <4)
             {
                 gear++;
+                printf("Gear %d\n", gear);
             }
         }
         //Speed -
@@ -240,6 +241,7 @@ int main(int argc, char *argv[])
             if(gear >1)
             {
                 gear--;
+                printf("Gear %d\n", gear);
             }
         }
         switch (gear)
@@ -248,19 +250,15 @@ int main(int argc, char *argv[])
                 break;
             case 1:
                 speed = 30.f;
-                printf("Gear 1");
                 break;
             case 2:
                 speed = 50.f;
-                printf("Gear 2");
                 break;
             case 3:
                 speed = 60.f;
-                printf("Gear 3");
                 break;
             case 4:
                 speed = 70.f;
-                printf("Gear 4");
                 break;
             default :
                 printf("Error\n");
