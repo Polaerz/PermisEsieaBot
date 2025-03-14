@@ -213,6 +213,7 @@ int main(int argc, char *argv[])
 
         if(printGear){
             printf("target speed %f\n", speed);
+            printGear = false;
         }
 
         //Passer à la vitesse supérieur bouton "R1"
@@ -372,11 +373,11 @@ int main(int argc, char *argv[])
                 printf("%f\n", UlrasonicSensor_getDistance(&sensorR));
                 
                 if(UlrasonicSensor_getDistance(&sensorR) < 20.f){
-                    MotorController_setTargetSpeed(&motorL, 40);
-                    MotorController_setTargetSpeed(&motorR, 50);
-                }else if(UlrasonicSensor_getDistance(&sensorR) > 25.f){
                     MotorController_setTargetSpeed(&motorL, 50);
                     MotorController_setTargetSpeed(&motorR, 40);
+                }else if(UlrasonicSensor_getDistance(&sensorR) > 25.f){
+                    MotorController_setTargetSpeed(&motorL, 40);
+                    MotorController_setTargetSpeed(&motorR, 50);
                 }else{
                     MotorController_setTargetSpeed(&motorL, 50);
                     MotorController_setTargetSpeed(&motorR, 50);
