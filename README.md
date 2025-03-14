@@ -22,6 +22,10 @@ ssh pi@10.42.0.1
 ```
 #### **Mise à jour du bot :**
 
+<div align="center">
+<img src="https://cdn.discordapp.com/attachments/1212852209491116113/1350011001885560925/dx682etjao541.jpg?ex=67d52f38&is=67d3ddb8&hm=5fb3aa8a1652525d313355a9cc94b4f6ada5b9a6a99a2f10573ef683f865f743&" width="150" alt="Concord Logo">
+</div>
+
 *MAJ système*
 ```console
 sudo apt update
@@ -231,7 +235,7 @@ void FPS_update(FPS *self)
  self->m_accu %= 5000000;
 ```
 
-On utilise un modulo car m_accu est une durée cela veut dire que l'on ne peut pas l'ré-initialiser à zéro n'importe comment il faut utiliser un modulo.
+On utilise un modulo car m_accu est une durée cela veut dire que l'on ne peut pas ré-initialiser à zéro n'importe comment il faut utiliser un modulo.
 
 ## Led.c
 
@@ -746,15 +750,19 @@ static void _MotorController_cb(
 |------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
 | [button.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/button.h)                       | Librarie du bonton sur l'add-board          |
 | [fps.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/fps.h)                             | Librarie des Frames per second              |
-| [input.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/input.h)                        | Librarie des inputs de la manettes          |
+| [input.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/input.h)                         | Librarie des inputs de la manettes          |
 | [led.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/led.h)                             | Librarie de la led                          |
 | [motor_controller.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/motor_controller.h)   | Librarie des moteurs                        |
 | [tools.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/tools.h)                         | Librarie des Outils                         |
 | [ultrasonic_sensor.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/ultrasonic_sensor.h) | Librarie des capteurs                       |
+| [settings.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/settings.h)                   | Librarie des modifications GPIO             |
 
 
+# ⚡ Main.c
 
+### Voici le main contenant toutes les épreuves ainsi que tout les appels de fonctions nécessaires.
 
+Le main.c -> [Here](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/main.c)      
 
 
 
