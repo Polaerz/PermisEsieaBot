@@ -372,19 +372,19 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                speed = 15.f;
+                //speed = 15.f;
                 printf("%f\n", UlrasonicSensor_getDistance(&sensorR));
                 
                 if(UlrasonicSensor_getDistance(&sensorR) < 20.f){
-                    MotorController_setTargetSpeed(&motorL, speed/1.5f);
-                    MotorController_setTargetSpeed(&motorR, speed);
+                    MotorController_setTargetSpeed(&motorL, 40);
+                    MotorController_setTargetSpeed(&motorR, 50);
                 }else if(UlrasonicSensor_getDistance(&sensorR) > 25.f){
-                    MotorController_setTargetSpeed(&motorL, speed);
-                    MotorController_setTargetSpeed(&motorR, speed/1.5f);
+                    MotorController_setTargetSpeed(&motorL, 50);
+                    MotorController_setTargetSpeed(&motorR, 40);
                 }else{
-                    MotorController_setTargetSpeed(&motorL, speed);
+                    MotorController_setTargetSpeed(&motorL, 50);
+                    MotorController_setTargetSpeed(&motorR, 50);
                 }
-                
             }else{
                 MotorController_setTargetSpeed(&motorL, 0.f);
                 MotorController_setTargetSpeed(&motorR, 0.f);
