@@ -186,25 +186,7 @@ int main(int argc, char *argv[])
 
 //------------------------------------------------------------------------------
 
-        //Passer à la vitesse supérieur bouton "R1"
-        if(input.speedLvlPlus)
-        {
-            if(gear <4)
-            {
-                gear++;
-                printf("target speed %f\n", speed );
-            }
-        }
-
-        //Passer à la vitesse inférieur bouton "L1"
-        if(input.speedLvlMinus)
-        {
-            if(gear >1)
-            {
-                gear--;
-                printf("target speed %f\n", speed );
-            }
-        }
+        
 
         //Switch permettant de changer de vitesse après avoir changer gear, chaque gear correspond à une vitesse
         switch(gear)
@@ -226,6 +208,26 @@ int main(int argc, char *argv[])
             default :
                 printf("Error\n");
                 break;
+        }
+
+        //Passer à la vitesse supérieur bouton "R1"
+        if(input.speedLvlPlus)
+        {
+            if(gear <4)
+            {
+                gear++;
+                printf("target speed %f\n", speed );
+            }
+        }
+
+        //Passer à la vitesse inférieur bouton "L1"
+        if(input.speedLvlMinus)
+        {
+            if(gear >1)
+            {
+                gear--;
+                printf("target speed %f\n", speed );
+            }
         }
 
 //------------------------------------------------------------------------------
