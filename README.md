@@ -5,7 +5,7 @@
 # Permis Esiea Bot - Classe 10 Internationale
 Pour mieux comprendre ces codes, veuillez lire attentivement ce fichier, qui offre une vue d'ensemble du ML Challenge.
 
-## 🚨 Se ne sont pas les codes finaux !!
+## 🚨 Ce ne sont pas les codes finaux !!
 En effet, le développement de ce bot n'est pas encore terminé, et des améliorations sont à venir.
 
 ## ⚠️ A propos
@@ -746,7 +746,7 @@ static void _MotorController_cb(
 |------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
 | [button.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/button.h)                       | Librarie du bonton sur l'add-board          |
 | [fps.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/fps.h)                             | Librarie des Frames per second              |
-| [input.hc](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/input.h)                        | Librarie des inputs de la manettes          |
+| [input.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/input.h)                        | Librarie des inputs de la manettes          |
 | [led.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/led.h)                             | Librarie de la led                          |
 | [motor_controller.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/motor_controller.h)   | Librarie des moteurs                        |
 | [tools.h](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/tools.h)                         | Librarie des Outils                         |
