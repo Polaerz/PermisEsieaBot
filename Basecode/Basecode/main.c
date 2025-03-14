@@ -192,7 +192,7 @@ int main(int argc, char *argv[])
             if(gear <4)
             {
                 gear++;
-                printf("Gear %d\n", gear);
+                printf("target speed %f\n", speed );
             }
         }
 
@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
             if(gear >1)
             {
                 gear--;
-                printf("Gear %d\n", gear);
+                printf("target speed %f\n", speed );
             }
         }
 
@@ -212,7 +212,7 @@ int main(int argc, char *argv[])
             case 0:
                 break;
             case 1:
-                speed = 30.f;
+                speed = 40.f;
                 break;
             case 2:
                 speed = 50.f;
@@ -302,10 +302,31 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorR, false);
 
                 //speed = 50.f;
-                float deltaV = input.leftAxisX * 15.f;
+                //float deltaV = input.leftAxisX * 15.f;
 
-                MotorController_setTargetSpeed(&motorL, speed + deltaV);
-                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
+            }
+            else if (input.backwardDown)
+            {
+                MotorController_setBackward(&motorL, true);
+                MotorController_setBackward(&motorR, true);
+
+                //speed = 50.f;
+                //float deltaV = input.leftAxisX * 15.f;
+
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
+            }
+            else if (input.superButtonPressed)
+            {
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, true);
+
+                //speed = 50.f;
+
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
             }
             else
             {
@@ -331,26 +352,16 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorR, false);
 
                 speed = 15.f;
-                printf("%f\n", sensorR.m_distance);
+                printf("%f\n", UlrasonicSensor_getDistance(&sensorR));
                 
-                if(sensorR.m_distance < 25.f){
-                    MotorController_setBackward(&motorL, true);
-                    MotorController_setBackward(&motorR, false);
-
-                    MotorController_setTargetSpeed(&motorL, speed/2.f);
-                    MotorController_setTargetSpeed(&motorR, speed*2.f);
-                }else if(sensorR.m_distance > 30.f){
-                    MotorController_setBackward(&motorL, false);
-                    MotorController_setBackward(&motorR, true);
-
-                    MotorController_setTargetSpeed(&motorL, speed*2.f);
-                    MotorController_setTargetSpeed(&motorR, speed/2.f);
-                }else{
-                    MotorController_setBackward(&motorL, false);
-                    MotorController_setBackward(&motorR, false);
-
-                    MotorController_setTargetSpeed(&motorL, speed);
+                if(UlrasonicSensor_getDistance(&sensorR) < 20.f){
+                    MotorController_setTargetSpeed(&motorL, speed/1.5f);
                     MotorController_setTargetSpeed(&motorR, speed);
+                }else if(UlrasonicSensor_getDistance(&sensorR) > 25.f){
+                    MotorController_setTargetSpeed(&motorL, speed);
+                    MotorController_setTargetSpeed(&motorR, speed/1.5f);
+                }else{
+                    MotorController_setTargetSpeed(&motorL, speed);
                 }
                 
             }else{
@@ -363,17 +374,8 @@ int main(int argc, char *argv[])
             printf("error\n");
             break;
         }
-    
-    // Fin du while(true) 
     }
 
-//------------------------------------------------------------------------------
-
-    /**
-     * @defgroup : Appel des fonctions quit
-     * 
-     * @note : Obligatoire pour fermer proprement son code
-     */
     MotorController_quit(&motorL);
     MotorController_quit(&motorR);
     Button_quit(&button);
