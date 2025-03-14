@@ -190,50 +190,19 @@ int main(int argc, char *argv[])
         
 
         //Switch permettant de changer de vitesse après avoir changer gear, chaque gear correspond à une vitesse
-        switch(gear)
-        {
-            case 0:
-                break;
-            case 1:
-                speed = 40.f;
-                break;
-            case 2:
-                speed = 50.f;
-                break;
-            case 3:
-                speed = 60.f;
-                break;
-            case 4:
-                speed = 70.f;
-                break;
-            default :
-                printf("Error\n");
-                break;
-        }
-
-        if(printGear){
-            printf("target speed %f\n", speed);
-            printGear = false;
-        }
 
         //Passer à la vitesse supérieur bouton "R1"
-        if(input.speedLvlPlus)
-        {
-            if(gear <4)
-            {
-                gear++;
-                printGear = true;
-            }
+        if(input.speedLvlPlus){
+        
+            speed += 10.f;
+            printf("SPEED : %f\n", speed);
         }
 
         //Passer à la vitesse inférieur bouton "L1"
         if(input.speedLvlMinus)
         {
-            if(gear >1)
-            {
-                gear--;
-                printGear = true;
-            }
+            speed -= 10.f;
+            printf("SPEED : %f\n", speed);
         }
 
 //------------------------------------------------------------------------------
@@ -249,7 +218,7 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, true);
 
-                speed = 40.f; //Ne pas prêter attention
+                //speed = 40.f; //Ne pas prêter attention
                 //float deltaV = input.leftAxisX * 15.f; //Ne pas prêter attention
 
                 MotorController_setTargetSpeed(&motorL, speed);
@@ -259,22 +228,22 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                //speed = 50.f;
-                float deltaV = input.leftAxisX * 15.f;
+                //speed = 40.f;
+                //float deltaV = input.leftAxisX * 15.f;
 
-                MotorController_setTargetSpeed(&motorL, speed + deltaV);
-                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
                 
             }else if(input.backwardDown)
             {
                 MotorController_setBackward(&motorL, true);
                 MotorController_setBackward(&motorR, true);
 
-                //speed = 50.f;
-                float deltaV = input.leftAxisX * 15.f;
+                //speed = 40.f;
+                //float deltaV = input.leftAxisX * 15.f;
 
-                MotorController_setTargetSpeed(&motorL, speed + deltaV);
-                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
             }
             else
             {
@@ -290,7 +259,7 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                speed = 60.f;
+                //speed = 35.f;
                 float deltaV = input.leftAxisX * 20.f;
 
                 MotorController_setTargetSpeed(&motorL, speed + deltaV);
