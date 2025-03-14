@@ -15,7 +15,7 @@ Vous trouverez ici tous les programmes utilisés pour le développement du bot. 
 
 Les informations ci-dessous servent de rappel pour se connecter à *l'ESIEABOT* ainsi que pour utiliser certaines commandes et données pouvant être utiles lors des différents tests à effectuer.
 
-#### **Connection :**
+#### **Connexion :**
 
 ```console
 ssh pi@10.42.0.1
@@ -764,9 +764,90 @@ static void _MotorController_cb(
 
 Le main.c -> [Here](https://github.com/Polaerz/PermisEsieaBot/blob/main/Basecode/Basecode/main.c)      
 
+* g_joystick = open;
+```c
+ g_joystick = open("/dev/input/js0", O_RDONLY | O_NONBLOCK);
+    if (g_joystick == -1)
+    {
+        printf("Could not open joystick\n");
+        return EXIT_FAILURE;
+    }
+```
+**Connexion à la manette**
 
+*  int pi = pigpio_start;
+```c
+    int pi = pigpio_start(NULL, NULL);
+    if (pi < 0)
+    {
+        printf("Can't start gpio lib\n");
+        assert(false);
+        abort();
+    }
+```
+**Init de PigPiod**
 
+* FPS fps;
+```c
+FPS fps = { 0 };
+    FPS_init(&fps, pi);
+```
+**Initialisation des composants de FPS**
 
+* Input input;
+```c
+ Input input = { 0 };
+    Button button = { 0 };
+    Button_init(&button, pi, GPIO_BUTTON);
+```
+**Initialisation des composants de Input et Button**
 
+* LED led;
+```c
+ LED led = { 0 };
+    LED_init(&led, pi, GPIO_LED);
+```
+**Initialisation des composants de LED**
+
+* Motorcontroller;
+```c
+    MotorController motorL = { 0 };
+    MotorController motorR = { 0 };
+    MotorController_init(&motorL, pi, GPIO_FORWARD_L, GPIO_BACKWARD_L, GPIO_MOTOR_CONTROL_L);
+    MotorController_init(&motorR, pi, GPIO_FORWARD_R, GPIO_BACKWARD_R, GPIO_MOTOR_CONTROL_R);
+    MotorController_setStartPower(&motorL, 110);
+    MotorController_setStartPower(&motorR, 110);
+    MotorController_setController(&motorL, kp, ki);
+    MotorController_setController(&motorR, kp, ki);
+```
+**Init du moteur**
+
+* UltrasonicSensor
+```c
+    UltrasonicSensor sensorL = { 0 };
+    UltrasonicSensor_init(&sensorL, pi, GPIO_TRIG_L, GPIO_ECHO_L);
+
+    // Init du capteur Droit 
+    UltrasonicSensor sensorR = { 0 };
+    UltrasonicSensor_init(&sensorR, pi, GPIO_TRIG_R, GPIO_ECHO_R);
+```
+**Init du capteur**
+1. Sensor Left Init
+2. Sensor Right Init
+
+* Tout va bien
+```c
+LED_blink(&led, 3, 0.2f);
+```
+**Tout est bien init**
+La LED clignotera pour indiquer que toutes les fonctions sont bien init
+
+* Boucle Infini
+```c
+ while (true)
+```
+**Boucle Infini**
+
+*
 
 
