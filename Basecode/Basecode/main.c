@@ -284,8 +284,8 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                //speed = 50.f;
-                float deltaV = input.leftAxisX * 15.f;
+                speed = 50.f;
+                float deltaV = input.leftAxisX * 35.f;
 
                 MotorController_setTargetSpeed(&motorL, speed + deltaV);
                 MotorController_setTargetSpeed(&motorR, speed - deltaV);
