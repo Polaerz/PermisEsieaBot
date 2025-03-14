@@ -80,6 +80,7 @@ int main(int argc, char *argv[])
      * @param ki : Init Constante de l'intégrale 
      */
     int gear = 1;
+    bool printGear = false;
     float speed = 30.f;
     float kp = 4.0f;
     float ki = 2.0f;
@@ -210,13 +211,17 @@ int main(int argc, char *argv[])
                 break;
         }
 
+        if(printGear){
+            printf("target speed %f\n", speed);
+        }
+
         //Passer à la vitesse supérieur bouton "R1"
         if(input.speedLvlPlus)
         {
             if(gear <4)
             {
                 gear++;
-                printf("target speed %f\n", speed );
+                printGear = true;
             }
         }
 
@@ -226,7 +231,7 @@ int main(int argc, char *argv[])
             if(gear >1)
             {
                 gear--;
-                printf("target speed %f\n", speed );
+                printGear = true;
             }
         }
 
@@ -284,8 +289,8 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
 
-                speed = 50.f;
-                float deltaV = input.leftAxisX * 35.f;
+                speed = 60.f;
+                float deltaV = input.leftAxisX * 20.f;
 
                 MotorController_setTargetSpeed(&motorL, speed + deltaV);
                 MotorController_setTargetSpeed(&motorR, speed - deltaV);
