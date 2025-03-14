@@ -1162,10 +1162,10 @@ Ici nous allons seulement nous occuper de ce qui est important de modifier
 
 # Documentation
 
--> [Raspberry Pi](https://www.raspberrypi.com/documentation/)
--> [ESIEABOT](https://esieabot.readthedocs.io/)
+* [Raspberry Pi](https://www.raspberrypi.com/documentation/)
+* [ESIEABOT](https://esieabot.readthedocs.io/)
 
 # Sujet
 
--> [Sujet](https://learning.esiea.fr/mod/resource/view.php?id=82415)
--> [Cours PID](https://learning.esiea.fr/mod/resource/view.php?id=82541)
+* [Sujet](https://learning.esiea.fr/mod/resource/view.php?id=82415)
+* [Cours PID](https://learning.esiea.fr/mod/resource/view.php?id=82541)
