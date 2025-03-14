@@ -115,7 +115,6 @@ int main(int argc, char *argv[])
      *  -> 3 = Mode vitesse cible -> 4 = Mode Marche arrière
      */
     int mode = 0;
-    bool toggleAuto = false;
     printf("Mode marche arrière\n");
 
 //------------------------------------------------------------------------------

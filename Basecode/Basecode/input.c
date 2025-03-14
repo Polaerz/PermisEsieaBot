@@ -97,7 +97,7 @@ void Input_updateControllerButtonDown(Input *self, int button)
         printf("SELECT\n");
         break;
     case CONTROLLER_BUTTON_MODE:
-        printf("MODE\n");
+        //printf("MODE\n");
         self->modePressed = true;
         break;
     case CONTROLLER_BUTTON_LEFTSHOULDER:
