@@ -848,6 +848,61 @@ La LED clignotera pour indiquer que toutes les fonctions sont bien init
 ```
 **Boucle Infini**
 
-*
+* Update
+```c
+        FPS_update(&fps);
+        Input_update(&input);
+        Button_update(&button);
+        LED_update(&led);
+        MotorController_update(&motorL);
+        MotorController_update(&motorR);
+        UltrasonicSensor_update(&sensorL);
+        UltrasonicSensor_update(&sensorR);
+```
+**Appels de toutes les fonctions Update**
 
+* Arrêt Totale
+
+```c
+   if (Button_isPressed(&button) || input.startPressed){
+            break;
+        }
+ ```
+ **Lorsque la touche `Start` / `Bouton Add-Board`**
+
+ * Select Mode
+```c
+ if(input.modePressed){
+            switch (mode){
+            case 0:
+                printf("Mode Slalom\n");
+                mode++;
+                break;     
+
+            case 1:
+                printf("Mode Freinage d'urgence\n");
+                mode++;
+                break;    
+
+            case 2:
+                printf("Mode vitesse cible\n");
+                mode++;
+                break;
+
+            case 3:
+                printf("Mode autonome\n");
+                mode++;
+                break;
+
+            case 4:
+                printf("Mode marche arrière\n");
+                mode = 0;
+                break;
+
+            default:
+                printf("error\n");
+                break;
+            }
+        }
+```
 
