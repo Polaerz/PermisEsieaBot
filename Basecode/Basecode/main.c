@@ -6,7 +6,7 @@
 /**
  * @author : Cyprien Jallet
  * @author : Ombeline Porte
- * @author : Joaquim Ludwiczak
+ * @author : Joachim Ludwiczak
  * @author : Lucas Doganis
  * @author : Mattéo Depestèle
  * @author : Eline Cezard-sibillot
