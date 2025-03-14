@@ -235,7 +235,7 @@ void FPS_update(FPS *self)
  self->m_accu %= 5000000;
 ```
 
-On utilise un modulo car m_accu est une durée cela veut dire que l'on ne peut pas ré-initialiser à zéro n'importe comment il faut utiliser un modulo.
+On utilise un modulo car m_accu est une durée cela veut dire que l'on ne peut pas ré-initialiser à zéro. Il faut récupérer le reste du temps qui s'est écoulé en plus de la période de 5s à laquelle les FPS sont mise à jour.
 
 ## Led.c
 
