@@ -241,7 +241,7 @@ int main(int argc, char *argv[])
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, true);
 
-                //speed = 50.f; //Ne pas prêter attention
+                speed = 40.f; //Ne pas prêter attention
                 //float deltaV = input.leftAxisX * 15.f; //Ne pas prêter attention
 
                 MotorController_setTargetSpeed(&motorL, speed);
@@ -296,7 +296,28 @@ int main(int argc, char *argv[])
             break;    
         case 2:
             //modeFreinageUrgence();
-            if(input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 20.f)
+            if(input.superButtonPressed) // bouton Y
+            {
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, true);
+
+                speed = 40.f; //Ne pas prêter attention
+                //float deltaV = input.leftAxisX * 15.f; //Ne pas prêter attention
+
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
+            }else if(input.backwardDown)
+            {
+                MotorController_setBackward(&motorL, true);
+                MotorController_setBackward(&motorR, true);
+
+                //speed = 50.f;
+                float deltaV = input.leftAxisX * 15.f;
+
+                MotorController_setTargetSpeed(&motorL, speed + deltaV);
+                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+                
+            }else if(input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 20.f)
             {
                 MotorController_setBackward(&motorL, false);
                 MotorController_setBackward(&motorR, false);
