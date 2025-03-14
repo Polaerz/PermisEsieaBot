@@ -81,6 +81,7 @@ int main(int argc, char *argv[])
      */
     int gear = 1;
     bool printGear = false;
+    bool urgenceled = false;
     float speed = 30.f;
     float kp = 4.0f;
     float ki = 2.0f;
@@ -302,6 +303,10 @@ int main(int argc, char *argv[])
             break;    
         case 2:
             //modeFreinageUrgence();
+            if(urgenceled){
+                LED_blink(&led, 5, 2.f/5.f);
+            }
+
             if(input.superButtonPressed) // bouton Y
             {
                 MotorController_setBackward(&motorL, false);
@@ -333,34 +338,19 @@ int main(int argc, char *argv[])
 
                 MotorController_setTargetSpeed(&motorL, speed);
                 MotorController_setTargetSpeed(&motorR, speed);
-            }
-            else if (input.backwardDown)
-            {
-                MotorController_setBackward(&motorL, true);
-                MotorController_setBackward(&motorR, true);
+            }else if(input.forwardDown){
+                urgenceled = true;
 
-                //speed = 50.f;
-                //float deltaV = input.leftAxisX * 15.f;
-
-                MotorController_setTargetSpeed(&motorL, speed);
-                MotorController_setTargetSpeed(&motorR, speed);
-            }
-            else if (input.superButtonPressed)
-            {
-                MotorController_setBackward(&motorL, false);
-                MotorController_setBackward(&motorR, true);
-
-                //speed = 50.f;
-
-                MotorController_setTargetSpeed(&motorL, speed);
-                MotorController_setTargetSpeed(&motorR, speed);
+                MotorController_setTargetSpeed(&motorL, 0.f);
+                MotorController_setTargetSpeed(&motorR, 0.f);
             }
             else
             {
                 MotorController_setTargetSpeed(&motorL, 0.f);
                 MotorController_setTargetSpeed(&motorR, 0.f);
                 
-                LED_blink(&led, 5, 2.f/5.f);
+                //urgenceled = true;
+                //LED_blink(&led, 5, 2.f/5.f);
                 
             }
                 //DEMI-TOUR SUR PLACE
