@@ -190,6 +190,34 @@ int main(int argc, char *argv[])
         
 
         //Switch permettant de changer de vitesse après avoir changer gear, chaque gear correspond à une vitesse
+<<<<<<< HEAD
+=======
+        switch(gear)
+        {
+            case 0:
+                break;
+            case 1:
+                speed = 40.f;
+                break;
+            case 2:
+                speed = 50.f;
+                break;
+            case 3:
+                speed = 60.f;
+                break;
+            case 4:
+                speed = 70.f;
+                break;
+            default :
+                printf("Error\n");
+                break;
+        }
+
+        if(printGear){
+            printf("target speed %f\n", speed);
+            printGear = false;
+        }
+>>>>>>> 08f4b488cecb2977f62b68ac39654a600d19b802
 
         //Passer à la vitesse supérieur bouton "R1"
         if(input.speedLvlPlus){
