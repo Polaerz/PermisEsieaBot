@@ -905,4 +905,267 @@ La LED clignotera pour indiquer que toutes les fonctions sont bien init
             }
         }
 ```
+**Choisir l'épreuve que l'on veut**
 
+* Boite de Vitesse
+```c
+switch(gear)
+        {
+            case 0:
+                break;
+            case 1:
+                speed = 40.f;
+                break;
+            case 2:
+                speed = 50.f;
+                break;
+            case 3:
+                speed = 60.f;
+                break;
+            case 4:
+                speed = 70.f;
+                break;
+            default :
+                printf("Error\n");
+                break;
+        }
+```
+**Permet de changer la vitesse**
+
+* Passer à la vitesse supérieur
+```c
+if(input.speedLvlPlus)
+        {
+            if(gear <4)
+            {
+                gear++;
+                printf("target speed %f\n", speed );
+            }
+        }
+```
+**Init la touche `R1` pour passer à la vitesse suivante***
+
+* Revenir à la vitesse précèdente
+```c
+ if(input.speedLvlMinus)
+        {
+            if(gear >1)
+            {
+                gear--;
+                printf("target speed %f\n", speed );
+            }
+        }
+```
+**Init la touche `L1` pour passer à la vitesse précèdente**
+
+* Programmation Mode / Epreuve
+```c
+switch(mode)
+```
+**Lancement des programme affilié au mode**
+
+* Mode marche arrière
+```c
+case 0:
+            if(input.superButtonPressed) // bouton Y
+            {
+                //prinf("launch c1");
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, true);
+
+                speed = 40.f; //Ne pas prêter attention
+                //float deltaV = input.leftAxisX * 15.f; //Ne pas prêter attention
+
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
+            }else if(input.forwardDown)
+            {
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, false);
+
+                //speed = 50.f;
+                float deltaV = input.leftAxisX * 15.f;
+
+                MotorController_setTargetSpeed(&motorL, speed + deltaV);
+                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+                
+            }else if(input.backwardDown)
+            {
+                MotorController_setBackward(&motorL, true);
+                MotorController_setBackward(&motorR, true);
+
+                //speed = 50.f;
+                float deltaV = input.leftAxisX * 15.f;
+
+                MotorController_setTargetSpeed(&motorL, speed + deltaV);
+                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+            }
+            else
+            {
+                MotorController_setTargetSpeed(&motorL, 0.f);
+                MotorController_setTargetSpeed(&motorR, 0.f);
+            }
+            break;
+```
+**Permet de lancer le mode marche arrière**
+
+* Mode Slalom (⚠️ Code en DEV) 
+```c
+case 1:
+            if(input.forwardDown)
+            {
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, false);
+
+                speed = 60.f;
+                float deltaV = input.leftAxisX * 20.f;
+
+                MotorController_setTargetSpeed(&motorL, speed + deltaV);
+                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+            }
+            else
+            {
+                MotorController_setTargetSpeed(&motorL, 0.f);
+                MotorController_setTargetSpeed(&motorR, 0.f);
+            }
+            break;
+```
+**Permet de lancer le mode Slalom**
+
+* Mode Freinage d'urgence
+```c
+ case 2:
+            if(input.superButtonPressed) // bouton Y
+            {
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, true);
+
+                speed = 40.f; //Ne pas prêter attention
+                //float deltaV = input.leftAxisX * 15.f; //Ne pas prêter attention
+
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
+            }else if(input.backwardDown)
+            {
+                MotorController_setBackward(&motorL, true);
+                MotorController_setBackward(&motorR, true);
+
+                //speed = 50.f;
+                float deltaV = input.leftAxisX * 15.f;
+
+                MotorController_setTargetSpeed(&motorL, speed + deltaV);
+                MotorController_setTargetSpeed(&motorR, speed - deltaV);
+                
+            }else if(input.forwardDown && UlrasonicSensor_getDistance(&sensorL) > 20.f)
+            {
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, false);
+
+                //speed = 50.f;
+                //float deltaV = input.leftAxisX * 15.f;
+
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
+            }
+            else if (input.backwardDown)
+            {
+                MotorController_setBackward(&motorL, true);
+                MotorController_setBackward(&motorR, true);
+
+                //speed = 50.f;
+                //float deltaV = input.leftAxisX * 15.f;
+
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
+            }
+            else if (input.superButtonPressed)
+            {
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, true);
+
+                //speed = 50.f;
+
+                MotorController_setTargetSpeed(&motorL, speed);
+                MotorController_setTargetSpeed(&motorR, speed);
+            }
+            else
+            {
+                MotorController_setTargetSpeed(&motorL, 0.f);
+                MotorController_setTargetSpeed(&motorR, 0.f);
+                
+                LED_blink(&led, 5, 2.f/5.f);
+                
+            }
+             
+            break;
+```
+**Permet de faire fonctionner le freinage d'urgence donc arrêt si il s'approche trop près du mur et allumé la LED.**
+
+* Mode Circuit Autonome (⚠️ Code en DEV) 
+```c
+case 4:
+            //modeCircuitAutonome();
+            if(input.autoButtonToggle){
+                MotorController_setBackward(&motorL, false);
+                MotorController_setBackward(&motorR, false);
+
+                //speed = 15.f;
+                printf("%f\n", UlrasonicSensor_getDistance(&sensorR));
+                
+                if(UlrasonicSensor_getDistance(&sensorR) < 20.f){
+                    MotorController_setTargetSpeed(&motorL, 40);
+                    MotorController_setTargetSpeed(&motorR, 50);
+                }else if(UlrasonicSensor_getDistance(&sensorR) > 25.f){
+                    MotorController_setTargetSpeed(&motorL, 50);
+                    MotorController_setTargetSpeed(&motorR, 40);
+                }else{
+                    MotorController_setTargetSpeed(&motorL, 50);
+                    MotorController_setTargetSpeed(&motorR, 50);
+                }
+            }else{
+                MotorController_setTargetSpeed(&motorL, 0.f);
+                MotorController_setTargetSpeed(&motorR, 0.f);
+            }
+            break;
+            
+        default:
+            printf("error\n");
+            break;
+```
+**Permet de suivre un mur qui est situé à la droite du mur.**
+
+* Quitter Proprement
+```c
+    MotorController_quit(&motorL);
+    MotorController_quit(&motorR);
+    Button_quit(&button);
+    LED_quit(&led);
+    FPS_quit(&fps);
+    UltrasonicSensor_quit(&sensorL);
+    UltrasonicSensor_quit(&sensorR);
+    pigpio_stop(pi);
+```
+**Quitte proprement toutes les fonctions et tout les fichiers.**
+
+# ⚙️ Settings.h
+
+Ici nous allons seulement nous occuper de ce qui est important de modifier
+
+### **Les pins pour les capteurs**
+
+```c
+#define GPIO_TRIG_L 10              //  
+#define GPIO_ECHO_L 9              // A changer en fonction de vos pins sur votre ESIEABOT
+#define GPIO_TRIG_R 5              //
+#define GPIO_ECHO_R 13             //
+```
+
+# Documentation
+
+-> [Raspberry Pi](https://www.raspberrypi.com/documentation/)
+-> [ESIEABOT](https://esieabot.readthedocs.io/)
+
+# Sujet
+
+-> [Sujet](https://learning.esiea.fr/mod/resource/view.php?id=82415)
+-> [Cours PID](https://learning.esiea.fr/mod/resource/view.php?id=82541)
